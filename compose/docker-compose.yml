@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+
+  counter:
+    image: errygg/counter:latest
+    networks:
+      - consul-net
+    ports:
+      - "8080:8080"
+
+  #dashboard:
+    #image: errygg/dashboard:latest
+
+  consul-agent:
+    image: errygg/consul-client-config:latest
+    networks:
+      - consul-net
+
+  consul-server-bootstrap:
+    image: consul:latest
+    networks:
+      - consul-net
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+      - "8600:8600/udp"
+
+networks:
+  consul-net:
