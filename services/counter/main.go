@@ -29,7 +29,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(portWithColon, router))
 }
 
-// HealthHandler returns a succesful status and a message.
+// HealthHandler returns a successful status and a message.
 // For use by Consul or other processes that need to verify service health.
 func HealthHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)

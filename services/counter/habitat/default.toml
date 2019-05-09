@@ -1,0 +1,9 @@
+[counter]
+hostname = "counter"
+port = 8080
+protocol = "http"
+
+[consul]
+hostname = "consul-client"
+port = 8500
+protocol = "http"

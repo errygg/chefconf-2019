@@ -1,18 +1,22 @@
 [counter]
 # Must match the docker compose file
 hostname = "counter"
-port = "8080"
+port = 8080
+
+[dashboard]
+hostname = "dashboard"
+port = 8081
 
 [agent]
+client_addr = "0.0.0.0"
 enable_encryption = false
 enable_script_checks = true
 datacenter = "dc1"
 log_level = "INFO"
 # Must match the docker compose file
-retry_join = ["consul-server-bootstrap"]
+retry_join = "consul-server-bootstrap"
 server = false
 ui = false
-
 
 [ports]
 dns = 8600

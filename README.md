@@ -1,5 +1,16 @@
 # chefconf-2019
 
+This is the project that is used for my ChefConf 2019 talk on Consul and
+Habitat.
+
+In all, this demo consists of 6 containers: counter service, dashboard service,
+Consul client, Consul server, and 2 Envoy sidecar containers.
+
+## Setup
+
+1. Ensure the `consul:latest` is pulled down locally.
+1. Ensure the `errygg/consul` package is built and pushed to Habitat Builder.
+
 1. First we'll build all the Habitat packages and export them as Docker containers
 
 ```bash
@@ -9,40 +20,32 @@ $ build
 $ hab pkg export docker ./results/<.hart file>
 ```
 
-In a seperate terminal:
+```bash
+> cd services/dashboard
+> hab studio enter
+$ build
+$ hab pkg export docker ./results/<.hart file>
+```
 
 ```bash
 > cd services/consul-client
+> hab studio enter
+$ build
+$ hab pkg export docker ./results/<.hart file>
 ```
 
-
-In a seperate tab:
+1. Run `docker-compose` to setup all the initial containers (without Envoy)
 
 ```bash
-> docker run -it -p 8080:8080 errygg/counter
+> cd compose
+> docker-compose up
 ```
 
-Browse to http://localhost:8080
+1. Browse to all the services and ensure they are running
 
-1. Start the dashboard app locally, start with `COUNTING_SERVICE_URL` set to the
-local address exported from the counter app hab application.
-
-```bash
-hab ...
-```
-
-1. Start up a Consul dev server
-
-```bash
-consul -dev ...
-```
-
-1. Start the counter app and register it with Consul (with the Consul agent
-running alongside the counter app)
-
-```bash
-hab ...
-```
+Consul Server: http://localhost:8500
+Counter Service: http://localhost:8080
+Dashboard Service: http://localhost:TBD
 
 1. Start the dashboard app and register it with Consul (with the Consul agent
 running alongside the counter app). Start the dashboard with `COUNTING_SERVICE_URL`

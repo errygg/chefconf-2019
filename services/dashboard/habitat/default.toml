@@ -1,0 +1,14 @@
+[counter]
+hostname = "counter.service.consul"
+port = 8080
+protocol = "http"
+
+[consul]
+hostname = "consul-client"
+port = 8500
+protocol = "http"
+
+[dashboard]
+hostname = "dashboard"
+port = 8081
+protocol = "http"

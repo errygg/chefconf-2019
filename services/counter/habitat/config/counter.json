@@ -1,0 +1,14 @@
+{
+  "id": "counter",
+  "name": "counter",
+  "address": "{{sys.ip}}",
+  "port": {{cfg.counter.port}},
+  "checks": [
+    {
+      "id": "counter-check-1",
+      "name": "/health",
+      "interval": "10s",
+      "args": ["curl", "{{cfg.counter.protocol}}://{{cfg.counter.hostname}}:{{cfg.counter.port}}/health"]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+[consul-client]
+plan_path = "services/consul-client/habitat"
+
+[counter]
+plan_path = "services/counter/habitat"
+
+[dashboard]
+plan_path = "services/dashboard/habitat"

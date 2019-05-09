@@ -2,30 +2,62 @@ version: '3'
 
 services:
 
-  counter:
-    image: errygg/counter:latest
-    networks:
-      - consul-net
-    ports:
-      - "8080:8080"
-
-  #dashboard:
-    #image: errygg/dashboard:latest
-
-  consul-agent:
-    image: errygg/consul-client-config:latest
-    networks:
-      - consul-net
-
   consul-server-bootstrap:
+    hostname: consul-server-bootstrap
     image: consul:latest
     networks:
       - consul-net
     ports:
+      - "8300:8300"
+      - "8301:8301"
       - "8400:8400"
       - "8500:8500"
       - "8600:8600"
       - "8600:8600/udp"
+    expose:
+      - "8300"
+      - "8301"
+      - "8302"
+    command: "agent -server -bootstrap-expect 1 -ui -client 0.0.0.0"
+
+  consul-client:
+    hostname: consul-client
+    image: errygg/consul-client:latest
+    networks:
+      - consul-net
+    expose:
+      - "8300"
+      - "8301"
+      - "8302"
+    dns: consul-client:8600
+    environment:
+      - HAB_LICENSE=accept
+
+  counter:
+    hostname: counter
+    image: errygg/counter:latest
+    networks:
+      - consul-net
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    dns: consul-client:8600
+    environment:
+      - HAB_LICENSE=accept
+
+  dashboard:
+    hostname: dashboard
+    image: errygg/dashboard:latest
+    networks:
+      - consul-net
+    expose:
+      - "8081"
+    ports:
+      - "8081:8081"
+    dns: consul-client:8600
+    environment:
+      - HAB_LICENSE=accept
 
 networks:
   consul-net:
