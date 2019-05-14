@@ -6,10 +6,11 @@ services:
     hostname: consul-server-bootstrap
     image: consul:latest
     networks:
-      - consul-net
+      - consul
     ports:
       - "8300:8300"
       - "8301:8301"
+      - "8302:8302"
       - "8400:8400"
       - "8500:8500"
       - "8600:8600"
@@ -18,46 +19,57 @@ services:
       - "8300"
       - "8301"
       - "8302"
+      - "8400"
+      - "8500"
+      - "8600"
+      - "8600/udp"
     command: "agent -server -bootstrap-expect 1 -ui -client 0.0.0.0"
 
   consul-client:
     hostname: consul-client
     image: errygg/consul-client:latest
     networks:
-      - consul-net
-    expose:
-      - "8300"
-      - "8301"
-      - "8302"
-    dns: consul-client:8600
+      consul:
+        ipv4_address: 172.20.0.10
     environment:
       - HAB_LICENSE=accept
+    volumes:
+      - ./resolv.conf:/etc/resolv.conf
+    cap_add:
+      - ALL
 
   counter:
     hostname: counter
     image: errygg/counter:latest
     networks:
-      - consul-net
-    expose:
-      - "8080"
+      - consul
     ports:
       - "8080:8080"
     dns: consul-client:8600
     environment:
       - HAB_LICENSE=accept
+    volumes:
+      - ./resolv.conf:/etc/resolv.conf
+    cap_add:
+      - ALL
 
   dashboard:
     hostname: dashboard
     image: errygg/dashboard:latest
     networks:
-      - consul-net
-    expose:
-      - "8081"
+      - consul
     ports:
       - "8081:8081"
     dns: consul-client:8600
     environment:
       - HAB_LICENSE=accept
+    volumes:
+      - ./resolv.conf:/etc/resolv.conf
+    cap_add:
+      - ALL
 
 networks:
-  consul-net:
+  consul:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24

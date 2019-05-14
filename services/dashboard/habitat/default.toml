@@ -5,6 +5,7 @@ protocol = "http"
 
 [consul]
 hostname = "consul-client"
+ip = "172.20.0.10"
 port = 8500
 protocol = "http"
 
