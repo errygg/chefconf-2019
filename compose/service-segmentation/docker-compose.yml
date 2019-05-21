@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+
+  consul-server:
+    hostname: consul-server
+    image: consul:latest
+    networks:
+      - consul-connect
+    ports:
+      - "8500:8500"
+    volumes:
+      - ./agent.hcl:/consul/config/agent.hcl
+    command: "agent -server -bootstrap-expect 1 -ui -client 0.0.0.0 -config-file=/consul/config/agent.hcl"
+
+  counter-connect:
+    hostname: counter-connect
+    image: errygg/counter-connect:latest
+    networks:
+      consul-connect:
+        ipv4_address: 172.20.0.10
+    ports:
+      - "8080:8080"
+    environment:
+      - HAB_LICENSE=accept
+    volumes:
+      - ./resolv.conf:/etc/resolv.conf
+    cap_add:
+      - ALL
+
+  dashboard-connect:
+    hostname: dashboard-connect
+    image: errygg/dashboard-connect:latest
+    networks:
+      consul-connect:
+        ipv4_address: 172.20.0.20
+    ports:
+      - "8081:8081"
+    environment:
+      - HAB_LICENSE=accept
+    volumes:
+      - ./resolv.conf:/etc/resolv.conf
+    cap_add:
+      - ALL
+
+networks:
+  consul-connect:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24

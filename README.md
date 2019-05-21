@@ -122,3 +122,5 @@ Docker [Compose](https://docs.docker.com/compose/gettingstarted/)
 Example Consul Docker Compose [file](https://github.com/hashicorp/consul/blob/master/demo/docker-compose-cluster/docker-compose.yml)
 
 Example Consul Client Habitat [package](https://github.com/qubitrenegade/habitat-consul-client)
+
+Creating TLS [Certificates](https://learn.hashicorp.com/consul/security-networking/certificates) for Consul

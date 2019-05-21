@@ -1,0 +1,14 @@
+{
+  "id": "dashboard-connect",
+  "name": "dashboard-connect",
+  "address": "{{sys.ip}}",
+  "port": {{cfg.dashboard-connect.port}},
+  "checks": [
+    {
+      "id": "dashboard-check-1",
+      "name": "/health",
+      "interval": "10s",
+      "args": ["curl", "{{cfg.dashboard-connect.protocol}}://{{cfg.dashboard-connect.hostname}}:{{cfg.dashboard-connect.port}}/health"]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[agent]
+client_addr = "0.0.0.0"
+enable_script_checks = true
+datacenter = "dc1"
+log_level = "INFO"
+# Must match the docker compose file
+retry_join = "consul-server"
+server = false
+ui = false
+
+[ports]
+dns = 8600
+http = 8500
+grpc = 8502
+https = -1
+serf_lan = 8301
+serf_wan = 8302
+server = 8300

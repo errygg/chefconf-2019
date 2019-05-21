@@ -1,0 +1,16 @@
+[counter]
+hostname = "counter.service.consul"
+port = 8080
+protocol = "http"
+
+[consul]
+hostname = "consul-client-dashboard.node.consul"
+# TODO: This IP address is currently hard coded for dnsmasq, it should be refactored to use consul-template
+ip = "172.20.0.20"
+port = 8500
+protocol = "http"
+
+[dashboard]
+hostname = "dashboard"
+port = 8081
+protocol = "http"

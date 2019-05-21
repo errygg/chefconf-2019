@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -eox
+
+exec 2>&1
+
+{{pkgPathFor "errygg/dnsmasq"}}/bin/dnsmasq -x $svc_path/dnsmasq.pid -C {{pkg.svc_config_path}}/dnsmasq.conf 2>&1
+
+exec {{pkg.path}}/bin/counter

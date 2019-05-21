@@ -1,0 +1,14 @@
+{
+  "id": "counter-connect",
+  "name": "counter-connect",
+  "address": "{{sys.ip}}",
+  "port": {{cfg.counter-connect.port}},
+  "checks": [
+    {
+      "id": "counter-check-1",
+      "name": "/health",
+      "interval": "10s",
+      "args": ["curl", "{{cfg.counter-connect.protocol}}://{{cfg.counter-connect.hostname}}:{{cfg.counter-connect.port}}/health"]
+    }
+  ]
+}

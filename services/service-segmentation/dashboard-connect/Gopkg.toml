@@ -1,0 +1,9 @@
+[[constraint]]
+  name = "github.com/gorilla/mux"
+  branch = "master"
+[[constraint]]
+  name = "github.com/GeertJohan/go.rice"
+  branch = "master"
+[[constraint]]
+  name = "github.com/graarh/golang-socketio"
+  branch = "master"
